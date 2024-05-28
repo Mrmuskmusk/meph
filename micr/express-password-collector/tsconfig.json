@@ -67,3 +67,50 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//   "compilerOptions": {
+//     "target": "es5",  // Adjust target ECMAScript version if needed
+//     "module": "commonjs", // Adjust module system if needed
+//     "outDir": "dist",  // Output directory for compiled JavaScript (optional)
+//     "rootDir": "src",  // Root directory for TypeScript source files (optional)
+//     "strict": true   // Enables stricter type checking (optional)
+//   },
+//   "include": ["src/**/*.ts"] // Include all TypeScript files under the "src" directory
+// }
