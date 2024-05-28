@@ -3,15 +3,29 @@
 
 
 # Function to get VM IP address (assuming Linux with ip command)
+# get_vm_ip() {
+#   # Get IP address of the first non-loopback interface
+#   vm_ip=$(ip route get default | awk '{print $NF}')
+#   if [[ -z "$vm_ip" ]]; then
+#     echo "Error: Could not determine VM IP address."
+#     exit 1
+#   fi
+#   echo "$vm_ip"
+# }
+
+
+
 get_vm_ip() {
-  # Get IP address of the first non-loopback interface
-  vm_ip=$(ip route get default | awk '{print $NF}')
+  vm_ip=$(hostname -I | awk '{print $1}')
   if [[ -z "$vm_ip" ]]; then
     echo "Error: Could not determine VM IP address."
     exit 1
   fi
   echo "$vm_ip"
 }
+
+
+
 
 # Get the domain name as an argument
 domain_name="$1"
