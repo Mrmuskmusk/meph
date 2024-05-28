@@ -109,6 +109,9 @@ sudo systemctl restart nginx
 # Store the current directory
 current_dir=$(pwd)
 
+# apt install npm
+apt install npm
+
 # Change directory to the target directory
 pushd micr/express-password-collector
 
