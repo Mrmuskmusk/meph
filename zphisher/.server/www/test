@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Fill Form</title>
+</head>
+<body>
+  <!-- Your HTML content goes here -->
+  <form id="form">
+    <input type="text" id="email" placeholder="Email">
+    <button type="button" id="submit">Submit</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      try {
+        // Get the email from the URL hash
+        const hash = window.location.hash.substring(1);
+        const email = hash; // Fallback email
+
+        // Select the input and button elements
+        const inputElement = document.querySelector('#email');
+        const buttonElement = document.querySelector('#submit');
+
+        if (inputElement && buttonElement) {
+          // Fill the input field with the email
+          inputElement.value = email;
+
+          // Add a click event listener to the button
+          buttonElement.addEventListener('click', () => {
+            // console.log('Button clicked with email:', inputElement.value);
+            // Here you can add further actions, like form submission
+          });
+        } else {
+        //   console.warn('Input or button element not found.');
+        }
+      } catch (error) {
+        // console.error('An error occurred:', error);
+      }
+    });
+  </script>
+</body>
+</html>

