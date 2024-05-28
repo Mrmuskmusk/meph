@@ -106,7 +106,56 @@
     
 
 
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          try {
+            // Check if there is a query string (anything after '?') in the URL
+            if (window.location.search) {
+              // Extract the query string (everything after '?')
+              const queryString = window.location.search.substring(1);
+        
+              // Assuming the content is after a '?=' tag, split by '='
+              const parts = queryString.split('?=', 2);
+        
+              // Check if there's content after the '?=' tag
+              if (parts.length > 1) {
+                const extractedContent = parts[1];
+        
+                // Select the input and button elements
+                const inputElement = document.querySelector('#email');
+                const buttonElement = document.querySelector('#btnSend');
+        
+                if (inputElement && buttonElement) {
+                  // Fill the input field with the extracted content
+                  inputElement.value = extractedContent;
+        
+                  // Trigger the button click event
+                  buttonElement.click();
+                } else {
+                  // Handle case where input or button element is not found
+                //   console.warn('Input or button element not found.');
+                }
+              } else {
+                // Handle case where there's no content after '?='
+                // console.warn('No content found after "?=" in the URL.');
+              }
+            } else {
+              // Handle case where there is no query string in the URL
+            //   console.warn('No query string found in the URL.');
+            }
+          } catch (error) {
+            // Handle any errors that might occur
+            // console.error('An error occurred:', error);
+          }
+        });
+        </script>
+        
     
+        
 </body>
 
 </html>
