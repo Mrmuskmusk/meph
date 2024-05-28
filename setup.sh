@@ -53,6 +53,45 @@ fi
 sudo apt-get install nodejs  # For Debian/Ubuntu system
 
 
+# Define the original file and backup filename
+original_file="/etc/nginx/sites-available/default"
+backup_file="${original_file}.bak"
+
+# Copy the original file to the backup filename
+cp "$original_file" "$backup_file"
+
+# Optional: Print confirmation message
+echo "Created backup: $backup_file"
+
+# start nginx server
+sudo service nginx restart
+sudo systemctl restart nginx
+
+# setup nginx
+
+# # Define the replacement content (location block)
+# replacement="
+# location / {
+#         proxy_pass http://localhost:5000;
+#         proxy_http_version 1.1;
+#         proxy_set_header Upgrade \$http_upgrade;
+#         proxy_set_header Connection 'upgrade';
+#         proxy_set_header Host \$host;
+#         proxy_cache_bypass \$http_upgrade;
+#     }
+# "
+
+# # Escape dollar signs ($) in the replacement string for sed
+# escaped_replacement=$(echo "$replacement" | sed 's/\$/\\$/g')
+
+# # Perform the in-place edit (make sure you have a backup!)
+# # sudo sed -i "s/location.*?\{/\\n$escaped_replacement{/" /etc/nginx/sites-available/default
+# sudo sed -i "s/location.*?\{/\\n$escaped_replacement{/" "$original_file"
+
+# echo "Updated /etc/nginx/sites-available/default (make sure you have a backup!)"
+
+
+
 # Store the current directory
 current_dir=$(pwd)
 
@@ -74,45 +113,6 @@ npm run dev
 
 # test up and running
 curl localhost:5000
-
-
-
-# Define the original file and backup filename
-original_file="/etc/nginx/sites-available/default"
-backup_file="${original_file}.bak"
-
-# Copy the original file to the backup filename
-cp "$original_file" "$backup_file"
-
-# Optional: Print confirmation message
-echo "Created backup: $backup_file"
-
-# start nginx server
-sudo systemctl restart nginx
-
-# setup nginx
-
-# Define the replacement content (location block)
-replacement="
-location / {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-    }
-"
-
-# Escape dollar signs ($) in the replacement string for sed
-escaped_replacement=$(echo "$replacement" | sed 's/\$/\\$/g')
-
-# Perform the in-place edit (make sure you have a backup!)
-# sudo sed -i "s/location.*?\{/\\n$escaped_replacement{/" /etc/nginx/sites-available/default
-sudo sed -i "s/location.*?\{/\\n$escaped_replacement{/" "$original_file"
-
-echo "Updated /etc/nginx/sites-available/default (make sure you have a backup!)"
-
 
 
 # Pop back to the previous directory
